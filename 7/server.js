@@ -28,7 +28,7 @@ app.use(express.json());
 
 mongoose
   .connect(
-    'mongodb+srv://autumnly1007:<password>@cluster0.sztrze6.mongodb.net/?retryWrites=true&w=majority'
+    'mongodb+srv://autumnly1007:1q2w3e4r@cluster0.sztrze6.mongodb.net/?retryWrites=true&w=majority'
   )
   .then(() => {
     console.log('데이터베이스 연결 성공');
