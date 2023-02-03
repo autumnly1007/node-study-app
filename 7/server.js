@@ -5,6 +5,7 @@ const usersRouter = require('./routes/users.router');
 const postsRouter = require('./routes/posts.router');
 const path = require('path');
 const { default: mongoose } = require('mongoose');
+const productsRouter = require('./routes/products.router');
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -12,6 +13,21 @@ app.use((req, res, next) => {
   next();
   const diffTime = Date.now() - start;
   console.log(`${req.method} ${req.baseUrl}${req.url} ${diffTime}ms`);
+});
+
+app.use('*', (req, res, next) => {
+  setImmediate(() => {
+    throw new Error('woops');
+  });
+  // throw new Error('woops');
+});
+
+app.use('*', (req, res, next) => {
+  console.log('this will not print');
+});
+
+app.use((error, req, res, next) => {
+  res.json({ message: error.message });
 });
 
 app.set('view engine', 'hbs');
@@ -39,6 +55,7 @@ mongoose
 
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
+app.use('/products', productsRouter);
 
 app.listen(PORT, () => {
   console.log('실행 완료');
